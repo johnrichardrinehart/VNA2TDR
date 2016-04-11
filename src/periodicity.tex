@@ -1,0 +1,27 @@
+\section{Periodicity Considerations}
+\label{sec:periodicity_considerations}
+
+\begin{framed}
+   Performing a IDFT on the measured VNA data should use a periodic time-domain
+   input because the DFT is a periodic transform.
+\end{framed}
+
+As acknowledged in Phillip Dunsmore's thesis
+(\url{http://etheses.whiterose.ac.uk/3355/1/uk_bl_ethos_406207.pdf}) a periodic
+transform imposes periodic functions on the analysis. The discrete Fourier
+transform is such a periodic transform. Thus, both the time-domain response and
+the frequency-domain response must be considered periodic. Quoting the thesis:
+``The step response of the VNA should retain the property that its derivative is
+the VNA time-domain impulse response, and since the sampling function [the VNA
+being the sampler] creates a periodic time-domain, with a period of $
+\frac{1}{\Delta \omega} $, the step response should retain this aspect of the
+periodicity.'' From here, the author determines the requirements of the step
+response given the required periodicity of the impulse response. And herein lies
+an important detail: The step response is the sum of two responses, one is a
+periodic portion (responsible for the periodicity of the impulse response); the
+other part is a ramp portion (staircase), which is responsible for the impulses
+within the impulse response. However, since this is not in $ L^2 $, a Laplace
+transform is used for the ramp portion and a Fourier transform is used for the
+periodic portion.
+
+I think the above detail may be incredibly relevant.

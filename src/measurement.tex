@@ -1,9 +1,3 @@
-\documentclass{article}
-\usepackage[]{amsmath}
-\usepackage[]{framed}
-\usepackage[]{parallel}
-\usepackage[]{siunitx}
-\begin{document}
 \section{VNA Measurements}
 \label{sec:vna_measurements}
 VNAs send in a continuous wave (CW) sinusoidal signal and measure the reflected
@@ -169,10 +163,3 @@ points of the VNA measurement. However, even if this is done, $ S_{11} $ and $
 V_{\text{in}}(f) $ are not likely going to be zero at $ f_{\text{max}} $. Thus,
 some filtering must be done in order to prevent ringing after having had
 performed the inverse transform.
-
-\begin{framed}
-   Performing a IDFT on the measured VNA data should use a periodic time-domain
-   input. The DFT is a periodic transform.
-\end{framed}
-
-\end{document}
