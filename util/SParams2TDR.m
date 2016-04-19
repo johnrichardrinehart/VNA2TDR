@@ -11,31 +11,35 @@ if length(times) ~= length(S11)
 end
 
 for m = 1:2:length(varargin)
-   switch varargin(m)
+   switch varargin{m}
    case 'filter'
-      filterFunction = makeColumn(varargin(m+1));
+      filterFunction = makeColumn(varargin{m+1});
    case 'times'
-      times = makeColumn(varargin(m+1));
+      times = makeColumn(varargin{m+1});
    end
 end
 
-% Generate a matrix with fixed times in the column and fixed frequency in the
-% row;
+% The below computes eq. 3.24 (page 65) of Phillip Dunsmore's U Leeds
+% thesis (The Time-Domain Response of  Coupled-Resonator Filters with 
+% Applications to Tuning)
+
+% Generate a matrix with fixed times in the column and fixed frequency
+% in the row;
 M = zeros(length(Freq)-1,length(times));
-keyboard;
 for i = 1:length(times);
-   M(:,i) = [Freq(2:end).*filterFunction(2:end).*exp(1i*Freq(2:end)*times(i))./(1i*Freq(2:end))];
+   M(:,i) = Freq(2:end).*filterFunction(2:end).*exp(1i*Freq(2:end)*times(i))./(1i*Freq(2:end))+ ... 
+       S11(1)*deltaF*times(i);
 end
-keyboard;
-step_response = .5*S11(1) + 2*deltaF*sum(M) + S11(1)*deltaF;
+% The below is missing the group delay constant
+step_response = .5*S11(1) + 2*deltaF*real(sum(M));
 step_response = step_response';
 end
 
-function array = makeColumn(array)
+function outArray = makeColumn(array)
 if isrow(array) && isvector(array)
-   array = array';
+   outArray = array';
 elseif isvector(array)
-   array = array;
+   outArray = array;
 else
    error('Must be array.');
 end
