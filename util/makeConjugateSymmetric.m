@@ -11,7 +11,7 @@ else
    error('makeConjugateSymmetric is only defined for arrays.');
 end
 
-conjSymmetric = [array ; flipud(conj(array(2:end)))];
+conjSymmetric = [flipud(conj(array(2:end))); array];
 
 if mod(length(conjSymmetric),2) ~= 1
    error('array does not have an odd number of indices');
@@ -19,7 +19,7 @@ end
 
 N = (length(conjSymmetric)-1)/2; % length(array) - 1
 
-first_half = conjSymmetric(2:N+1);
+first_half = conjSymmetric(1:N);
 second_half = conjSymmetric(N+2:end);
 if any(first_half - conj(flipud(second_half)))
    error('array is not conjugate symmetric.')
